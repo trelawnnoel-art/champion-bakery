@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Champion Bakery · Jamaican Bakery on White Plains Road, Bronx</title>
+<meta name="description" content="Champion Bakery, Jamaican bakery in the Bronx since 1977. Beef patties, coco bread, hard dough bread and spice bun. Order online and catering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff8ec; --surface:#ffffff; --surface-2:#fbefd9; --ink:#1c140c; --muted:#6e5d49; --line:#ecdcc0;
+  --gold:#f2a900; --gold-deep:#b86e00; --green:#00703c; --green-deep:#064d2b; --on-green:#ffffff;
+  --slab:"Alfa Slab One",Rockwell,"Roboto Slab",Georgia,serif;
+  --body:"DM Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14100b; --surface:#1d1710; --surface-2:#251d13; --ink:#f8efe0; --muted:#b9a68c; --line:#33291c;
+  --gold:#f6b72c; --gold-deep:#f6b72c; --green:#2bb673; --green-deep:#0b3d24; --on-green:#06140c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14100b; --surface:#1d1710; --surface-2:#251d13; --ink:#f8efe0; --muted:#b9a68c; --line:#33291c;
+  --gold:#f6b72c; --gold-deep:#f6b72c; --green:#2bb673; --green-deep:#0b3d24; --on-green:#06140c; color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+button{font:inherit;color:inherit}
+
+/* ---------- Intro ---------- */
+#intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden}
+#intro .half{position:absolute;top:0;bottom:0;width:50.5%;background:#064d2b;transition:transform .9s cubic-bezier(.7,0,.2,1)}
+#intro .half.l{left:0;background:linear-gradient(90deg,#053f23,#064d2b)}
+#intro .half.r{right:0;background:linear-gradient(270deg,#053f23,#064d2b)}
+#intro.open .half.l{transform:translateX(-101%)}
+#intro.open .half.r{transform:translateX(101%)}
+.i-in{position:relative;text-align:center;color:#fff3dc;transition:opacity .4s,transform .5s}
+#intro.open .i-in{opacity:0;transform:scale(.9)}
+.i-patty{width:min(300px,62vw);overflow:visible;display:block;margin:0 auto}
+.ip-dough{transform-origin:60px 66px;animation:pop .55s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes pop{from{transform:scale(0)}}
+.ip-gold{opacity:0;animation:bake 1s ease 1.05s forwards}
+@keyframes bake{to{opacity:1}}
+.ip-c{stroke-dasharray:10;stroke-dashoffset:10;animation:crimp .25s ease forwards}
+@keyframes crimp{to{stroke-dashoffset:0}}
+.ip-steam{opacity:0}
+#intro .ip-steam{animation:steam 2.2s ease-out 1.6s infinite}
+.i-logo{font-family:var(--slab);font-weight:400;font-size:clamp(40px,9vw,84px);line-height:.95;margin:18px 0 8px;color:#f6b72c;text-shadow:0 4px 0 #8a5200;opacity:0;animation:stamp .5s cubic-bezier(.2,1.6,.4,1) 1.9s forwards}
+@keyframes stamp{from{opacity:0;transform:scale(1.6) rotate(-4deg)}to{opacity:1;transform:rotate(-2deg)}}
+.i-sub{margin:0;letter-spacing:.18em;font-size:clamp(11px,1.6vw,14px);opacity:0;animation:fadein .6s ease 2.35s forwards}
+@keyframes fadein{to{opacity:.85}}
+.i-skip{position:absolute;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));background:transparent;border:1px solid rgba(255,243,220,.4);color:#fff3dc;border-radius:999px;padding:8px 16px;cursor:pointer;font-size:14px;transition:opacity .3s}
+#intro.open .i-skip{opacity:0}
+
+/* ---------- Header / nav ---------- */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{width:44px;height:33px;flex:none}
+.logo b{font-family:var(--slab);font-weight:400;font-size:22px;line-height:1;color:var(--green)}
+.logo small{display:block;font-size:11px;letter-spacing:.14em;color:var(--muted);margin-top:3px}
+.nav{display:flex;gap:6px}
+.nav a{text-decoration:none;font-weight:500;padding:8px 14px;border-radius:999px;color:var(--muted)}
+.nav a:hover{color:var(--ink)}
+.nav a[aria-current=page]{background:var(--surface-2);color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:13px 24px;font-weight:700;font-size:16px;cursor:pointer;text-decoration:none;background:var(--green);color:var(--on-green);transition:transform .15s,box-shadow .2s}
+.btn:hover{box-shadow:0 8px 24px -8px var(--green)}
+.btn:active{transform:scale(.97)}
+.btn.gold{background:var(--gold);color:#1c140c}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.cartbtn{position:relative}
+.cartbtn .cn{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:11px;background:var(--gold);color:#1c140c;font-size:12px;display:grid;place-items:center;padding:0 5px;transition:transform .3s cubic-bezier(.2,1.6,.4,1)}
+.cartbtn .cn.bump{transform:scale(1.4)}
+.tabs{display:none}
+@media (max-width:760px){
+  .nav,.bar .cartbtn{display:none}
+  .tabs{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+  .tabs a{flex:1;text-align:center;text-decoration:none;font-size:12px;font-weight:500;color:var(--muted);padding:6px 0;border-radius:12px;position:relative}
+  .tabs a svg{display:block;margin:0 auto 2px;width:22px;height:22px}
+  .tabs a[aria-current=page]{color:var(--green);background:var(--surface-2)}
+  .tabs .cn{position:absolute;top:2px;left:55%;min-width:18px;height:18px;border-radius:9px;background:var(--gold);color:#1c140c;font-size:11px;display:grid;place-items:center;padding:0 4px}
+  main{padding-bottom:84px}
+}
+
+/* ---------- Views ---------- */
+.view[hidden]{display:none}
+.view{animation:viewin .45s ease}
+@keyframes viewin{from{opacity:0;transform:translateY(10px)}}
+section{padding:clamp(56px,8vw,96px) 0}
+h2{font-family:var(--slab);font-weight:400;font-size:clamp(30px,4.6vw,50px);line-height:1.05;margin:0 0 14px;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:56ch;margin:0 0 40px;font-size:18px}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease var(--d,0s),transform .7s cubic-bezier(.2,.9,.3,1.1) var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+
+/* hero */
+.hero{padding:clamp(36px,6vw,80px) 0 clamp(40px,6vw,72px);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero-art{order:-1;max-width:420px;margin:0 auto}}
+.est{display:inline-block;font-weight:700;color:var(--green);margin-bottom:14px;letter-spacing:.04em}
+.hero h1{font-family:var(--slab);font-weight:400;font-size:clamp(42px,7.4vw,86px);line-height:.98;margin:0 0 20px;letter-spacing:-.01em}
+.hero h1 span{color:var(--gold-deep)}
+.hero p{font-size:clamp(17px,1.8vw,20px);color:var(--muted);max-width:44ch;margin:0 0 28px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero-art{position:relative}
+.hero-art .sun{position:absolute;inset:6% 4%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--gold) 45%,transparent),transparent 68%)}
+.hero-art svg{position:relative;width:100%;overflow:visible;animation:float 5s ease-in-out infinite}
+.hero-art .photo{position:relative;display:block;width:86%;margin:7%;aspect-ratio:1;object-fit:cover;border-radius:50%;border:6px solid var(--surface);box-shadow:0 24px 60px rgba(60,30,0,.25);animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px) rotate(-1.5deg)}}
+.steam{animation:steam 2.6s ease-out infinite}
+.steam:nth-of-type(2){animation-delay:.8s}.steam:nth-of-type(3){animation-delay:1.6s}
+@keyframes steam{0%{opacity:0;transform:translateY(12px)}35%{opacity:.85}100%{opacity:0;transform:translateY(-22px)}}
+
+/* lunch banner */
+.lunch{background:var(--green-deep);color:#fff3dc;border-radius:28px;padding:clamp(24px,4vw,44px);display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;position:relative;overflow:hidden}
+@media (max-width:820px){.lunch{grid-template-columns:1fr;text-align:center}.lunch .combo{margin:0 auto}}
+.lunch::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;right:-120px;top:-180px;background:radial-gradient(circle,rgba(246,183,44,.25),transparent 65%)}
+.lunch .combo{width:190px;position:relative;aspect-ratio:1;object-fit:cover;border-radius:50%;border:4px solid #f6b72c}
+.lunch h3{font-family:var(--slab);font-weight:400;font-size:clamp(26px,3.6vw,40px);line-height:1.05;margin:0 0 6px;color:#f6b72c}
+.lunch p{margin:0 0 4px;opacity:.9}
+.lunch .price{font-family:var(--slab);font-size:clamp(56px,8vw,88px);line-height:1;color:#fff;position:relative}
+.lunch .price sup{font-size:.45em;vertical-align:.9em}
+.status{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-weight:700;font-size:15px;background:rgba(255,255,255,.1);padding:6px 14px;border-radius:999px}
+.status i{width:9px;height:9px;border-radius:50%;background:#9aa;flex:none}
+.status.live i{background:#3ee07f;box-shadow:0 0 0 0 rgba(62,224,127,.7);animation:ping 1.6s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(62,224,127,0)}100%{box-shadow:0 0 0 0 rgba(62,224,127,0)}}
+
+/* product cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgba(80,50,10,.45)}
+.card .pic{background:var(--surface-2);border-radius:16px;aspect-ratio:4/3;display:grid;place-items:center;margin-bottom:14px;overflow:hidden}
+.card .pic svg{width:72%;transition:transform .35s cubic-bezier(.2,1.4,.4,1)}
+.card:hover .pic svg{transform:scale(1.08) rotate(-3deg)}
+.pic img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.card:hover .pic img{transform:scale(1.06)}
+.card h3{margin:0;font-size:18px}
+.card p{margin:4px 0 14px;color:var(--muted);font-size:15px;flex:1}
+.card .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card .pr{font-weight:700;font-size:18px}
+.add{border:0;background:var(--green);color:var(--on-green);border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px;cursor:pointer}
+.add[disabled]{background:var(--line);color:var(--muted);cursor:not-allowed}
+.tag{display:inline-block;font-size:12px;font-weight:700;color:#b3261e;margin-left:6px}
+.cat{font-family:var(--slab);font-weight:400;font-size:26px;margin:40px 0 16px}
+.cat:first-child{margin-top:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);z-index:5;padding:8px 0;background:var(--bg)}
+.chips a{text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:500;font-size:15px}
+.chips a:hover{border-color:var(--green)}
+
+/* reviews */
+.revhead{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.stars{color:var(--gold);letter-spacing:2px}
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.rv{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
+.rv .who{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.rv .av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff}
+.rv .who b{display:block;font-size:15px}.rv .who small{color:var(--muted);font-size:13px}
+.rv p{margin:8px 0 0;color:var(--muted)}
+.sample{font-size:12px;font-weight:700;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:2px 10px;margin-left:auto}
+.press{margin-top:40px;text-align:center;font-family:var(--slab);font-size:clamp(24px,3.4vw,36px);line-height:1.2;max-width:24ch;margin-inline:auto}
+.press small{display:block;font-family:var(--body);font-size:15px;color:var(--muted);margin-top:10px}
+
+/* story */
+.story{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media (max-width:820px){.story{grid-template-columns:1fr}}
+.year{font-family:var(--slab);font-size:clamp(90px,16vw,180px);line-height:.85;color:var(--gold);-webkit-text-stroke:2px var(--gold-deep)}
+.story p{color:var(--muted)}
+
+/* order */
+.otabs{display:inline-flex;background:var(--surface-2);border-radius:999px;padding:5px;margin-bottom:32px}
+.otabs button{border:0;background:none;border-radius:999px;padding:10px 22px;font-weight:700;cursor:pointer;color:var(--muted)}
+.otabs button[aria-selected=true]{background:var(--green);color:var(--on-green)}
+.olay{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:start}
+@media (max-width:900px){.olay{grid-template-columns:1fr}}
+.olist{display:grid;gap:10px}
+.oi{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px}
+.oi .pic{background:var(--surface-2);border-radius:12px;aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
+.oi .pic svg{width:80%}
+.oi b{display:block}.oi small{color:var(--muted)}
+.step{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
+.step button{border:0;background:none;width:36px;height:36px;font-size:20px;cursor:pointer;color:var(--ink)}
+.step button:hover{background:var(--surface-2)}
+.step span{min-width:26px;text-align:center;font-weight:700}
+.panel{position:sticky;top:calc(env(safe-area-inset-top,0px) + 88px);background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px}
+.panel h3{margin:0 0 12px;font-family:var(--slab);font-weight:400;font-size:24px}
+.lines{list-style:none;margin:0 0 14px;padding:0;font-size:15px}
+.lines li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.empty{color:var(--muted);font-size:15px;margin:0 0 14px}
+.tot{display:flex;justify-content:space-between;font-weight:700;font-size:20px;margin:6px 0 16px}
+label.f{display:grid;gap:6px;font-weight:500;font-size:15px;margin-bottom:12px}
+input[type=text],input[type=tel],input[type=email],input[type=date],select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;width:100%}
+textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green)}
+.note{font-size:13px;color:var(--muted);margin:12px 0 0}
+.range-row{display:flex;align-items:center;gap:14px}.range-row input{flex:1;accent-color:var(--green)}.range-row output{font-weight:700;min-width:6ch;text-align:right}
+.hint{background:var(--surface-2);border-radius:14px;padding:12px 14px;font-size:15px;margin:4px 0 16px}
+
+/* contact */
+.clay{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+@media (max-width:860px){.clay{grid-template-columns:1fr}}
+.info{background:var(--green-deep);color:#fff3dc;border-radius:26px;padding:clamp(24px,4vw,40px)}
+.info h3{font-family:var(--slab);font-weight:400;font-size:28px;margin:0 0 18px;color:#f6b72c}
+.info dl{margin:0;display:grid;gap:16px}
+.info dt{font-size:13px;letter-spacing:.12em;opacity:.7}
+.info dd{margin:2px 0 0;font-size:18px}
+.info a{color:#fff}
+.map{margin-top:22px;border-radius:18px;overflow:hidden;background:#0a3a22;aspect-ratio:16/9;position:relative}
+.map svg{width:100%;height:100%;display:block}
+.pin{transform-origin:200px 116px;animation:drop .8s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes drop{from{transform:translateY(-40px);opacity:0}}
+.form{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:clamp(22px,3vw,34px)}
+
+/* toast + modal */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--ink);color:var(--bg);border-radius:999px;padding:12px 14px 12px 20px;display:flex;gap:14px;align-items:center;z-index:60;transition:transform .4s cubic-bezier(.2,1.4,.4,1);font-weight:500;max-width:calc(100vw - 32px)}
+.toast.on{transform:translate(-50%,0)}
+.toast a{background:var(--gold);color:#1c140c;border-radius:999px;padding:6px 14px;text-decoration:none;font-weight:700;font-size:14px;white-space:nowrap}
+@media (max-width:760px){.toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))}}
+.modal{position:fixed;inset:0;z-index:70;display:none;place-items:center;background:rgba(20,12,4,.55);padding:20px}
+.modal.on{display:grid}
+.mbox{background:var(--surface);border-radius:26px;padding:34px;max-width:420px;width:100%;text-align:center;animation:pop .45s cubic-bezier(.2,1.5,.4,1)}
+.mbox svg{width:84px;height:84px}
+.mbox .ck{stroke-dasharray:60;stroke-dashoffset:60;animation:crimp .5s ease .25s forwards}
+.mbox h3{font-family:var(--slab);font-weight:400;font-size:28px;margin:12px 0 6px}
+.mbox p{color:var(--muted);margin:0 0 20px}
+
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer button{background:none;border:0;color:var(--green);cursor:pointer;text-decoration:underline;padding:0}
+footer .credits{display:block;width:100%;font-size:12px;opacity:.8}
+footer .credits a{color:inherit}
+
+/* patty munch on click */
+.munch{position:fixed;z-index:90;width:76px;height:57px;margin:-46px 0 0 -38px;pointer-events:none;animation:munchIn .16s cubic-bezier(.2,1.6,.4,1) both,munchOut .2s ease-in 1.02s forwards}
+.munch svg{width:100%;height:100%;overflow:visible;animation:chomp .14s ease-in-out 6 .2s}
+.munch .bite{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:bite .12s ease-out forwards}
+.munch .crumb{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:40%;background:#e39a2a;opacity:0;animation:crumb .55s ease-in forwards}
+@keyframes munchIn{from{transform:scale(0) rotate(-20deg)}}
+@keyframes munchOut{to{opacity:0;transform:scale(.5)}}
+@keyframes chomp{50%{transform:scale(.92) rotate(4deg)}}
+@keyframes bite{to{transform:scale(1)}}
+@keyframes crumb{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--dx),70px) rotate(220deg)}}
+@media (prefers-reduced-motion:reduce){
+  #intro{display:none}.view{animation:none}
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero-art svg,.hero-art .photo,.steam,.status.live i,.pin{animation:none}
+  .steam{opacity:.6}
+}
+</style>
+</head>
+<body>
+
+<!-- Illustrations (used where there is no photo yet) -->
+<svg class="sprite" aria-hidden="true">
+  <defs>
+    <linearGradient id="gPatty" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd257"/><stop offset=".6" stop-color="#f2a62a"/><stop offset="1" stop-color="#d9801a"/></linearGradient>
+    <linearGradient id="gCoco" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6dcae"/><stop offset="1" stop-color="#dcb071"/></linearGradient>
+    <linearGradient id="gLoaf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c7823e"/><stop offset="1" stop-color="#9c5a22"/></linearGradient>
+    <linearGradient id="gBun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a4a22"/><stop offset="1" stop-color="#5a2c12"/></linearGradient>
+  </defs>
+  <symbol id="a-patty" viewBox="0 0 120 90">
+    <ellipse cx="60" cy="76" rx="50" ry="6" fill="#000" opacity=".12"/>
+    <path d="M8 68 A52 52 0 0 1 112 68 Z" fill="url(#gPatty)"/>
+    <path d="M8 68 A52 52 0 0 1 112 68" fill="none" stroke="#c46d10" stroke-width="2"/>
+    <path d="M30 34 q10 -10 26 -12 M70 24 q14 3 22 12 M40 48 q8 -6 18 -7" fill="none" stroke="#fff3c4" stroke-width="2.4" stroke-linecap="round" opacity=".7"/>
+    <g stroke="#b8650a" stroke-width="2.2" stroke-linecap="round"><path d="M16 61v7M25 61v7M34 61v7M43 61v7M52 61v7M61 61v7M70 61v7M79 61v7M88 61v7M97 61v7M106 63v5"/></g>
+    <rect x="8" y="66" width="104" height="3" rx="1.5" fill="#c46d10"/>
+  </symbol>
+  <symbol id="a-coco" viewBox="0 0 120 90">
+    <ellipse cx="60" cy="78" rx="50" ry="6" fill="#000" opacity=".12"/>
+    <path d="M10 56 Q10 26 60 24 Q110 26 110 56 Q110 74 60 74 Q10 74 10 56Z" fill="url(#gCoco)"/>
+    <path d="M14 54 Q60 40 106 54" fill="none" stroke="#c99554" stroke-width="2.4"/>
+    <path d="M14 54 Q60 66 106 54" fill="none" stroke="#e8c58b" stroke-width="2"/>
+    <ellipse cx="44" cy="36" rx="16" ry="5" fill="#fff" opacity=".35"/>
+  </symbol>
+  <symbol id="a-loaf" viewBox="0 0 120 90">
+    <ellipse cx="60" cy="80" rx="52" ry="6" fill="#000" opacity=".12"/>
+    <path d="M12 46 Q12 20 40 20 L80 20 Q108 20 108 46 L108 72 Q108 76 104 76 L16 76 Q12 76 12 72Z" fill="#f2d6a4"/>
+    <path d="M12 46 Q12 20 40 20 L80 20 Q108 20 108 46 Q60 54 12 46Z" fill="url(#gLoaf)"/>
+    <path d="M36 28 q4 10 0 18 M60 26 q4 11 0 20 M84 28 q4 10 0 18" fill="none" stroke="#f2d6a4" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>
+  </symbol>
+  <symbol id="a-bun" viewBox="0 0 120 90">
+    <ellipse cx="60" cy="80" rx="48" ry="6" fill="#000" opacity=".12"/>
+    <rect x="14" y="22" width="92" height="54" rx="14" fill="url(#gBun)"/>
+    <path d="M24 30 Q60 22 96 30" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".35"/>
+    <g fill="#2c1206"><circle cx="34" cy="48" r="3"/><circle cx="56" cy="60" r="3"/><circle cx="76" cy="44" r="3"/><circle cx="90" cy="62" r="3"/><circle cx="46" cy="66" r="2.5"/><circle cx="64" cy="40" r="2.5"/></g>
+    <g fill="#e04a2a"><circle cx="44" cy="40" r="2.2"/><circle cx="84" cy="54" r="2.2"/></g>
+  </symbol>
+  <symbol id="a-soda" viewBox="0 0 120 90">
+    <ellipse cx="60" cy="84" rx="22" ry="4" fill="#000" opacity=".14"/>
+    <rect x="42" y="10" width="36" height="72" rx="7" fill="#0e8a4a"/>
+    <rect x="42" y="34" width="36" height="22" fill="#f6b72c"/>
+    <ellipse cx="60" cy="11" rx="16" ry="4" fill="#cfd6d2"/>
+    <rect x="47" y="14" width="5" height="64" rx="2.5" fill="#fff" opacity=".3"/>
+  </symbol>
+  <symbol id="a-cake" viewBox="0 0 120 90">
+    <ellipse cx="60" cy="80" rx="46" ry="6" fill="#000" opacity=".12"/>
+    <path d="M16 40 L100 28 L104 72 L20 76Z" fill="#b8692c"/>
+    <path d="M16 40 L100 28 L104 40 L18 52Z" fill="#f7ead2"/>
+    <path d="M18 60 L103 52" stroke="#f7ead2" stroke-width="5"/>
+    <g fill="#e8742a"><circle cx="40" cy="38" r="2.4"/><circle cx="62" cy="34" r="2.4"/><circle cx="84" cy="31" r="2.4"/></g>
+  </symbol>
+  <symbol id="a-bulla" viewBox="0 0 120 90">
+    <ellipse cx="60" cy="78" rx="44" ry="6" fill="#000" opacity=".12"/>
+    <path d="M18 52 Q18 30 60 30 Q102 30 102 52 L102 60 Q102 74 60 74 Q18 74 18 60Z" fill="#5c2e12"/>
+    <ellipse cx="60" cy="50" rx="42" ry="18" fill="#7a3f1a"/>
+    <ellipse cx="50" cy="44" rx="18" ry="5" fill="#fff" opacity=".18"/>
+    <g fill="#4a220c"><circle cx="40" cy="52" r="1.8"/><circle cx="68" cy="46" r="1.8"/><circle cx="80" cy="55" r="1.8"/><circle cx="56" cy="58" r="1.8"/></g>
+  </symbol>
+  <symbol id="a-combo" viewBox="0 0 160 110">
+    <use href="#a-soda" x="78" y="4" width="90" height="72"/>
+    <use href="#a-coco" x="0" y="38" width="110" height="80"/>
+    <use href="#a-patty" x="14" y="24" width="84" height="64"/>
+  </symbol>
+</svg>
+
+<div id="intro" aria-hidden="true">
+  <div class="half l"></div><div class="half r"></div>
+  <div class="i-in">
+    <svg class="i-patty" viewBox="0 -30 120 120">
+      <g class="ip-dough"><path d="M8 68 A52 52 0 0 1 112 68 Z" fill="#f4e2bd"/></g>
+      <g class="ip-gold"><use href="#a-patty" x="0" y="0" width="120" height="90"/></g>
+      <g stroke="#c9a36a" stroke-width="2.2" stroke-linecap="round" fill="none">
+        <path class="ip-c" style="animation-delay:.55s" d="M16 60v8"/><path class="ip-c" style="animation-delay:.6s" d="M25 60v8"/><path class="ip-c" style="animation-delay:.65s" d="M34 60v8"/><path class="ip-c" style="animation-delay:.7s" d="M43 60v8"/><path class="ip-c" style="animation-delay:.75s" d="M52 60v8"/><path class="ip-c" style="animation-delay:.8s" d="M61 60v8"/><path class="ip-c" style="animation-delay:.85s" d="M70 60v8"/><path class="ip-c" style="animation-delay:.9s" d="M79 60v8"/><path class="ip-c" style="animation-delay:.95s" d="M88 60v8"/><path class="ip-c" style="animation-delay:1s" d="M97 60v8"/>
+      </g>
+      <g fill="none" stroke="#fff3dc" stroke-width="3" stroke-linecap="round">
+        <path class="ip-steam" d="M42 8 C34 -2 50 -10 42 -22"/><path class="ip-steam" style="animation-delay:2s" d="M60 4 C52 -6 68 -14 60 -26"/><path class="ip-steam" style="animation-delay:2.4s" d="M78 8 C70 -2 86 -10 78 -22"/>
+      </g>
+    </svg>
+    <h1 class="i-logo">Champion<br>Bakery</h1>
+    <p class="i-sub">SINCE 1977 · WHITE PLAINS ROAD · BRONX</p>
+  </div>
+  <button class="i-skip" id="skip">Skip</button>
+</div>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#home" aria-label="Champion Bakery home"><svg viewBox="0 0 120 90" aria-hidden="true"><use href="#a-patty"/></svg><span><b>Champion Bakery</b><small>SINCE 1977 · BRONX</small></span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#home">Home</a><a href="#menu">Menu</a><a href="#order">Order</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="btn cartbtn" href="#order">Order online <span class="cn" data-cn>0</span></a>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Main">
+  <a href="#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11 12 4l9 7v9H3z"/></svg>Home</a>
+  <a href="#menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16H5zM9 9h6M9 13h6"/></svg>Menu</a>
+  <a href="#order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h2l2 10h10l2-7H7"/><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>Order<span class="cn" data-cn>0</span></a>
+  <a href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Contact</a>
+</nav>
+
+<main>
+<!-- ================= HOME ================= -->
+<div class="view" data-view="home">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="est">JAMAICAN BAKERY · EST. 1977</span>
+        <h1>The Bronx’s <span>patty</span> since 1977.</h1>
+        <p>Flaky beef patties, soft coco bread, hard dough bread and spice bun, baked fresh every day on White Plains Road.</p>
+        <div class="ctas"><a class="btn" href="#order">Order for pickup</a><a class="btn ghost" href="#menu">See the menu</a></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun"></div>
+        <img class="photo" src="img/patty.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="lunch reveal">
+        <img class="combo" src="img/combo.jpg" alt="">
+        <div>
+          <h3>Lunch special</h3>
+          <p>Beef patty, coco bread and a soda. Every day from 11am to 3pm.</p>
+          <span class="status" data-status><i></i><span>Checking…</span></span>
+        </div>
+        <div style="text-align:center">
+          <div class="price"><sup>$</sup>6</div>
+          <button class="btn gold" data-add="lunch" style="margin-top:12px">Add to order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2 class="reveal">Fresh out the oven</h2>
+      <p class="lede reveal" style="--d:.08s">The favorites people line up for.</p>
+      <div class="grid" id="favs"></div>
+      <p style="margin-top:28px"><a class="btn ghost" href="#menu">Full menu</a></p>
+    </div>
+  </section>
+
+  <section style="background:var(--surface-2)">
+    <div class="wrap">
+      <div class="revhead reveal">
+        <div><h2 style="margin:0">What the Bronx says</h2><p style="margin:6px 0 0;color:var(--muted)"><span class="stars">★★★★★</span>&nbsp; Reviews from Google</p></div>
+        <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Champion+Bakery+3978+White+Plains+Rd+Bronx+NY">Read all on Google</a>
+      </div>
+      <div class="reviews">
+        <div class="rv reveal"><div class="who"><span class="av" style="background:#00703c">D</span><div><b>Denise R.</b><small>Local Guide</small></div><span class="sample">Sample</span></div><span class="stars">★★★★★</span><p>Been coming here since I was a kid. The beef patty in coco bread is still the best lunch on White Plains Road.</p></div>
+        <div class="rv reveal" style="--d:.1s"><div class="who"><span class="av" style="background:#b86e00">M</span><div><b>Marcus T.</b><small>2 weeks ago</small></div><span class="sample">Sample</span></div><span class="stars">★★★★★</span><p>Hard dough bread is always fresh and the spice bun around Easter is a must. Friendly staff, quick line.</p></div>
+        <div class="rv reveal" style="--d:.2s"><div class="who"><span class="av" style="background:#6e3b1c">K</span><div><b>Keisha W.</b><small>1 month ago</small></div><span class="sample">Sample</span></div><span class="stars">★★★★★</span><p>Ordered a patty tray for my son’s party and everybody asked where they came from. Hot, flaky and on time.</p></div>
+      </div>
+      <p class="press reveal">“The beef patties are the best in the city.”<small>Ghetto Gastro</small></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap story">
+      <div class="year reveal">1977</div>
+      <div class="reveal" style="--d:.1s">
+        <h2>Baking on White Plains Road for nearly 50 years</h2>
+        <p>Champion Bakery opened in 1977 as Coin Bakery on 224th Street, then moved up the block to 225th to serve more customers. Every patty, loaf and bun is still baked right here.</p>
+        <a class="btn" href="#contact">Visit us</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= MENU ================= -->
+<div class="view" data-view="menu" hidden>
+  <section>
+    <div class="wrap">
+      <h2>Menu</h2>
+      <p class="lede">Baked fresh daily. Tap “Add” to build a pickup order.</p>
+      <div class="chips" id="menuChips"></div>
+      <div id="menuList"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ORDER ================= -->
+<div class="view" data-view="order" hidden>
+  <section>
+    <div class="wrap">
+      <h2>Order</h2>
+      <p class="lede">Order ahead for pickup, or plan catering for your next event.</p>
+      <div class="otabs" role="tablist">
+        <button role="tab" aria-selected="true" data-o="pickup">Pickup order</button>
+        <button role="tab" aria-selected="false" data-o="catering">Catering</button>
+      </div>
+
+      <div data-op="pickup">
+        <div class="olay">
+          <div class="olist" id="orderList"></div>
+          <aside class="panel">
+            <h3>Your order</h3>
+            <ul class="lines" id="cartLines"></ul>
+            <p class="empty" id="cartEmpty">Nothing yet. Add a patty or two.</p>
+            <div class="tot"><span>Total</span><span id="cartTotal">$0.00</span></div>
+            <form id="pickupForm">
+              <label class="f">Pickup time<select name="time" id="pickTime"></select></label>
+              <label class="f">Name<input type="text" name="name" required autocomplete="name"></label>
+              <label class="f">Phone<input type="tel" name="phone" required autocomplete="tel"></label>
+              <button class="btn" type="button" data-submit style="width:100%">Place pickup order</button>
+            </form>
+            <p class="note">Pay when you pick up. Prices before tax.</p>
+          </aside>
+        </div>
+      </div>
+
+      <div data-op="catering" hidden>
+        <div class="olay">
+          <div>
+            <div class="hint" id="guestHint"></div>
+            <label class="f">How many guests?<span class="range-row"><input type="range" id="guests" min="10" max="200" step="5" value="40"><output id="guestsOut">40</output></span></label>
+            <div class="olist" id="trayList" style="margin-top:12px"></div>
+          </div>
+          <aside class="panel">
+            <h3>Catering request</h3>
+            <ul class="lines" id="trayLines"></ul>
+            <p class="empty" id="trayEmpty">Add trays to see your estimate.</p>
+            <div class="tot"><span>Estimate</span><span id="trayTotal">$0.00</span></div>
+            <form id="cateringForm">
+              <label class="f">Event date<input type="date" name="date" required></label>
+              <label class="f">Pickup or delivery<select name="how"><option>Pickup</option><option>Delivery (Bronx area)</option></select></label>
+              <label class="f">Name<input type="text" name="name" required autocomplete="name"></label>
+              <label class="f">Phone<input type="tel" name="phone" required autocomplete="tel"></label>
+              <label class="f">Notes<textarea name="notes" placeholder="Event type, spicy or mild, anything else…"></textarea></label>
+              <button class="btn" type="button" data-submit style="width:100%">Send catering request</button>
+            </form>
+            <p class="note">We’ll call to confirm within one business day. Please order at least 48 hours ahead.</p>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= CONTACT ================= -->
+<div class="view" data-view="contact" hidden>
+  <section>
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p class="lede">Come see us on White Plains Road, or send a message.</p>
+      <div class="clay">
+        <div class="info">
+          <h3>Champion Bakery</h3>
+          <dl>
+            <div><dt>ADDRESS</dt><dd>3978 White Plains Rd<br>Bronx, NY 10466</dd></div>
+            <div><dt>PHONE</dt><dd><a href="tel:+17187981203">(718) 798-1203</a></dd></div>
+            <div><dt>HOURS</dt><dd>Open daily · call for today’s hours</dd></div>
+            <div><dt>GETTING HERE</dt><dd>2 or 5 train to 225 St</dd></div>
+          </dl>
+          <div class="map" aria-hidden="true">
+            <svg viewBox="0 0 400 225">
+              <rect width="400" height="225" fill="#0a3a22"/>
+              <g stroke="#155a36" stroke-width="10"><path d="M0 60H400M0 170H400M80 0V225M300 0V225"/></g>
+              <path d="M190 0V225" stroke="#f6b72c" stroke-width="14"/>
+              <text x="198" y="214" fill="#f6b72c" font-size="11" font-family="DM Sans, sans-serif" font-weight="700">WHITE PLAINS RD</text>
+              <text x="306" y="56" fill="#9cc8ae" font-size="10" font-family="DM Sans, sans-serif">E 226 ST</text>
+              <text x="306" y="166" fill="#9cc8ae" font-size="10" font-family="DM Sans, sans-serif">E 225 ST</text>
+              <g class="pin"><path d="M200 116c-14-16-22-26-22-38a22 22 0 0 1 44 0c0 12-8 22-22 38z" fill="#f6b72c"/><circle cx="200" cy="78" r="8" fill="#0a3a22"/></g>
+            </svg>
+          </div>
+          <p style="margin:18px 0 0"><a class="btn gold" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=3978+White+Plains+Rd+Bronx+NY+10466">Get directions</a></p>
+        </div>
+        <form class="form" id="contactForm">
+          <h3 style="font-family:var(--slab);font-weight:400;font-size:26px;margin:0 0 16px">Send a message</h3>
+          <label class="f">Name<input type="text" name="name" required autocomplete="name"></label>
+          <label class="f">Email or phone<input type="text" name="reach" required></label>
+          <label class="f">Message<textarea name="msg" required></textarea></label>
+          <button class="btn" type="button" data-submit>Send message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 Champion Bakery · 3978 White Plains Rd, Bronx, NY</span><span>Website by TREMAX Digital · <button id="replay">Replay intro</button></span><span class="credits">Stock photos via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Homemade_Jamaican_patties.jpg">Lilpisomojado</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Beef_patty_(2053394161).jpg">stu_spivack</a> (CC BY-SA 2.0), <a href="https://commons.wikimedia.org/wiki/File:Beef_patty_(3154002720).jpg">stu_spivack</a> (CC BY-SA 2.0), Jason Lam (<a href="https://commons.wikimedia.org/wiki/File:Coco_bread_wrapped_beef_patty.jpg">1</a>, <a href="https://commons.wikimedia.org/wiki/File:Coco_bread.jpg">2</a>, CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Bag-bread_(361666550).jpg">Jungle Jim's International Market</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Jamaican_spice_bun.jpg">Xaymacan</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Bulla_cake.jpg">ChildofMidnight</a> (CC BY 3.0), <a href="https://commons.wikimedia.org/wiki/File:Tumbler_of_cola_with_ice.jpg">Simon Cousins</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Carrot_cake_-_Milfey_Patisserie_2026-04-04.jpg">Andy Li</a> (CC0). Photos resized and cropped.</span></div>
+</footer>
+
+<div class="toast" id="toast" role="status"><span id="toastMsg">Added</span><a href="#order">View order</a></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="mbox">
+    <svg viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="40" fill="var(--green)"/><path class="ck" d="M26 43l11 11 21-23" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <h3 id="mTitle">Order received</h3>
+    <p id="mText"></p>
+    <button class="btn" id="mClose">Done</button>
+  </div>
+</div>
+
+<script>
+const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const money=n=>'$'+n.toFixed(2);
+
+/* ---------- Menu data (sample prices: confirm with the bakery) ---------- */
+const MENU=[
+  {id:'lunch',cat:'Lunch special',name:'Lunch special',desc:'Beef patty, coco bread and a soda. 11am–3pm.',price:6,art:'combo',lunch:true},
+  {id:'beef',cat:'Patties',name:'Beef patty',desc:'Flaky golden crust, seasoned beef. The classic.',price:3.25,art:'patty',fav:true},
+  {id:'spicy',cat:'Patties',name:'Spicy beef patty',desc:'Same patty, more pepper.',price:3.25,art:'patty',img:'patty-cut',hot:true},
+  {id:'chicken',cat:'Patties',name:'Chicken patty',desc:'Curry-seasoned chicken in a flaky crust.',price:3.5,art:'patty',img:'patty-cut'},
+  {id:'veg',cat:'Patties',name:'Vegetable patty',desc:'Mixed vegetables, island spices.',price:3.25,art:'patty',img:'patty-whole'},
+  {id:'coco',cat:'Breads',name:'Coco bread',desc:'Soft, sweet and made to hold a patty.',price:1.75,art:'coco',fav:true},
+  {id:'hdb',cat:'Breads',name:'Hard dough bread · small (40 oz)',desc:'Soft, dense Jamaican loaf, sliced and bagged. Duck, Mongoose or Alligator.',price:5,art:'loaf',fav:true},
+  {id:'hdbl',cat:'Breads',name:'Hard dough bread · large (52 oz)',desc:'The big 52 oz loaf for the whole family.',price:7,art:'loaf',fav:true},
+  {id:'bulla',cat:'Breads',name:'Bulla',desc:'Sweet, spiced molasses cake. Great with cheese or butter.',price:5,art:'bulla',fav:true},
+  {id:'bun',cat:'Breads',name:'Spice bun',desc:'Dark, rich and full of fruit.',price:7,art:'bun',fav:true},
+  {id:'cake',cat:'Sweets',name:'Carrot cake slice',desc:'Moist and spiced.',price:4,art:'cake'},
+  {id:'soda',cat:'Drinks',name:'Soda',desc:'Island and classic flavors.',price:1.75,art:'soda'}
+];
+const TRAYS=[
+  {id:'t25',name:'Patty tray · 25',desc:'Beef, chicken or veggie, mix and match',price:75,art:'patty',p:25},
+  {id:'t50',name:'Patty tray · 50',desc:'Great for parties and office lunches',price:145,art:'patty',p:50},
+  {id:'t100',name:'Patty tray · 100',desc:'Big events and church functions',price:280,art:'patty',p:100},
+  {id:'cocod',name:'Coco bread · dozen',desc:'Pair with patties',price:18,art:'coco'},
+  {id:'hdbx',name:'Hard dough bread · 40 oz loaf',desc:'Sliced and bagged',price:5,art:'loaf'},
+  {id:'hdbxl',name:'Hard dough bread · 52 oz loaf',desc:'Sliced and bagged',price:7,art:'loaf'},
+  {id:'bunw',name:'Spice bun · whole',desc:'Serves 10 to 12',price:14,art:'bun'}
+];
+const PHOTO={combo:'combo',patty:'patty',coco:'coco',loaf:'hardo',bulla:'bulla',soda:'soda',bun:'bun',cake:'cake'};
+const art=(a,img)=>(img||PHOTO[a])?`<img src="img/${img||PHOTO[a]}.jpg" alt="" loading="lazy">`:`<svg viewBox="${a==='combo'?'0 0 160 110':'0 0 120 90'}" aria-hidden="true"><use href="#a-${a}"/></svg>`;
+
+/* ---------- Lunch special clock (New York time) ---------- */
+function nyNow(){const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date());
+  return {h:+p.find(x=>x.type==='hour').value,m:+p.find(x=>x.type==='minute').value}}
+function lunchOn(){const {h}=nyNow();return h>=11&&h<15}
+function lunchStatus(){
+  const {h,m}=nyNow(),mins=h*60+m;
+  $$('[data-status]').forEach(s=>{
+    if(mins>=660&&mins<900){const left=900-mins;s.classList.add('live');s.lastElementChild.textContent=`On now · ends in ${left>=60?Math.floor(left/60)+'h ':''}${left%60}m`}
+    else{s.classList.remove('live');s.lastElementChild.textContent=mins<660?'Starts today at 11am':'Back tomorrow at 11am'}
+  });
+  $$('[data-add="lunch"]').forEach(b=>{b.disabled=!lunchOn();if(b.classList.contains('add'))b.textContent=lunchOn()?'Add':'11am–3pm'});
+}
+
+/* ---------- Cart ---------- */
+const cart={};
+function addItem(id,silent){
+  if(id==='lunch'&&!lunchOn())return;
+  cart[id]=(cart[id]||0)+1;renderCart();
+  if(!silent){const it=MENU.find(x=>x.id===id);$('#toastMsg').textContent=`${it.name} added`;const t=$('#toast');t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2600)}
+  $$('[data-cn]').forEach(c=>{c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump');setTimeout(()=>c.classList.remove('bump'),300)});
+}
+function setQty(id,d){cart[id]=Math.max(0,(cart[id]||0)+d);if(!cart[id])delete cart[id];renderCart()}
+function renderCart(){
+  const ids=Object.keys(cart),count=ids.reduce((a,k)=>a+cart[k],0);let total=0;
+  $$('[data-cn]').forEach(c=>{c.textContent=count;c.style.visibility=count?'visible':'hidden'});
+  $('#cartLines').innerHTML=ids.map(k=>{const it=MENU.find(x=>x.id===k);total+=it.price*cart[k];return `<li><span>${cart[k]} × ${it.name}</span><span>${money(it.price*cart[k])}</span></li>`}).join('');
+  $('#cartEmpty').hidden=!!ids.length;$('#cartTotal').textContent=money(total);
+  $$('[data-q]').forEach(s=>s.textContent=cart[s.dataset.q]||0);
+}
+function card(it){return `<article class="card reveal"><div class="pic">${art(it.art,it.img)}</div><h3>${it.name}${it.hot?'<span class="tag">HOT</span>':''}</h3><p>${it.desc}</p><div class="row"><span class="pr">${money(it.price)}</span><button class="add" data-add="${it.id}">Add</button></div></article>`}
+
+/* favourites + menu */
+$('#favs').innerHTML=MENU.filter(m=>m.fav).map(card).join('');
+const cats=[...new Set(MENU.map(m=>m.cat))],slug=c=>'c-'+c.toLowerCase().replace(/[^a-z]+/g,'-');
+$('#menuChips').innerHTML=cats.map(c=>`<a href="#menu" data-jump="${slug(c)}">${c}</a>`).join('');
+$('#menuList').innerHTML=cats.map(c=>`<h3 class="cat" id="${slug(c)}">${c}</h3><div class="grid">${MENU.filter(m=>m.cat===c).map(card).join('')}</div>`).join('');
+$$('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.getElementById(a.dataset.jump).scrollIntoView({behavior:REDUCE?'auto':'smooth'})}));
+/* order list */
+$('#orderList').innerHTML=MENU.map(it=>`<div class="oi"><div class="pic">${art(it.art,it.img)}</div><div><b>${it.name}</b><small>${money(it.price)}${it.lunch?' · 11am–3pm only':''}</small></div><div class="step"><button aria-label="Remove one ${it.name}" data-minus="${it.id}">−</button><span data-q="${it.id}">0</span><button aria-label="Add one ${it.name}" data-plus="${it.id}">+</button></div></div>`).join('');
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-add]');if(a&&!a.disabled)addItem(a.dataset.add);
+  const p=e.target.closest('[data-plus]');if(p){if(p.dataset.plus==='lunch'&&!lunchOn()){$('#toastMsg').textContent='Lunch special is 11am–3pm';$('#toast').classList.add('on');setTimeout(()=>$('#toast').classList.remove('on'),2400);return}addItem(p.dataset.plus,true)}
+  const m=e.target.closest('[data-minus]');if(m)setQty(m.dataset.minus,-1);
+});
+/* pickup times */
+(function(){const s=$('#pickTime');s.innerHTML='<option>As soon as possible (about 15 min)</option>'+[30,45,60,90].map(n=>`<option>In ${n} minutes</option>`).join('')})();
+
+/* ---------- Catering ---------- */
+const trays={};
+$('#trayList').innerHTML=TRAYS.map(t=>`<div class="oi"><div class="pic">${art(t.art)}</div><div><b>${t.name}</b><small>${t.desc} · ${money(t.price)}</small></div><div class="step"><button aria-label="Remove one ${t.name}" data-tm="${t.id}">−</button><span data-tq="${t.id}">0</span><button aria-label="Add one ${t.name}" data-tp="${t.id}">+</button></div></div>`).join('');
+function renderTrays(){
+  let total=0,patties=0;const ids=Object.keys(trays);
+  $('#trayLines').innerHTML=ids.map(k=>{const t=TRAYS.find(x=>x.id===k);total+=t.price*trays[k];patties+=(t.p||0)*trays[k];return `<li><span>${trays[k]} × ${t.name}</span><span>${money(t.price*trays[k])}</span></li>`}).join('');
+  $('#trayEmpty').hidden=!!ids.length;$('#trayTotal').textContent=money(total);
+  $$('[data-tq]').forEach(s=>s.textContent=trays[s.dataset.tq]||0);
+  const g=+$('#guests').value,need=g*2;$('#guestsOut').textContent=g;
+  $('#guestHint').innerHTML=`For <b>${g} guests</b> we suggest about <b>${need} patties</b> (2 per person).`+(ids.length?` You have <b>${patties}</b> so far${patties>=need?' 👍':'.'}`:'');
+}
+document.addEventListener('click',e=>{
+  const p=e.target.closest('[data-tp]');if(p){trays[p.dataset.tp]=(trays[p.dataset.tp]||0)+1;renderTrays()}
+  const m=e.target.closest('[data-tm]');if(m){const k=m.dataset.tm;trays[k]=Math.max(0,(trays[k]||0)-1);if(!trays[k])delete trays[k];renderTrays()}
+});
+$('#guests').addEventListener('input',renderTrays);
+$$('.otabs button').forEach(b=>b.addEventListener('click',()=>{$$('.otabs button').forEach(x=>x.setAttribute('aria-selected',x===b));$$('[data-op]').forEach(p=>p.hidden=p.dataset.op!==b.dataset.o)}));
+(function(){const d=new Date(Date.now()+2*864e5);$('[name=date]').min=d.toISOString().slice(0,10)})();
+
+/* ---------- Forms (demo: connect to Square, Toast or Formspree when live) ---------- */
+function done(title,text){$('#mTitle').textContent=title;$('#mText').textContent=text;$('#modal').classList.add('on');$('#mClose').focus()}
+$('#mClose').addEventListener('click',()=>$('#modal').classList.remove('on'));
+$('#pickupForm').addEventListener('submit',e=>{e.preventDefault();if(!Object.keys(cart).length){$('#toastMsg').textContent='Add something to your order first';$('#toast').classList.add('on');setTimeout(()=>$('#toast').classList.remove('on'),2400);return}
+  done('Order received',`Order #${Math.floor(1000+Math.random()*9000)} for ${$('#cartTotal').textContent}. ${$('#pickTime').value}. Pay at pickup.`);for(const k in cart)delete cart[k];renderCart();e.target.reset()});
+$('#cateringForm').addEventListener('submit',e=>{e.preventDefault();done('Request sent','Thanks! We’ll call you within one business day to confirm your catering order.');e.target.reset()});
+$('#contactForm').addEventListener('submit',e=>{e.preventDefault();done('Message sent','Thanks for reaching out. We’ll get back to you soon.');e.target.reset()});
+
+/* ---------- Routing ---------- */
+const VIEWS=['home','menu','order','contact'];
+function route(x){let v=typeof x==='string'?x:location.hash.slice(1);if(!VIEWS.includes(v))v='home';
+  $$('[data-view]').forEach(s=>s.hidden=s.dataset.view!==v);
+  $$('.nav a,.tabs a').forEach(a=>a.getAttribute('href')==='#'+v?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+  scrollTo(0,0);observe();
+}
+addEventListener('hashchange',()=>route());
+addEventListener('popstate',()=>route());
+/* Handle page links directly so navigation works inside any preview frame */
+document.addEventListener('click',e=>{
+  if(e.defaultPrevented)return;
+  const a=e.target.closest('a[href^="#"]');if(!a)return;
+  const v=a.getAttribute('href').slice(1);if(!VIEWS.includes(v))return;
+  e.preventDefault();
+  if(location.hash!=='#'+v){try{history.pushState(null,'','#'+v)}catch(_){}}
+  route(v);
+});
+/* Submit buttons: validate, then run the form's handler without a real page submit */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-submit]');if(!b)return;
+  const f=b.closest('form');if(!f||!f.reportValidity())return;
+  f.dispatchEvent(new Event('submit',{cancelable:true}));
+});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||e.target.tagName==='TEXTAREA')return;
+  const f=e.target.closest&&e.target.closest('form');if(!f)return;
+  e.preventDefault();const b=f.querySelector('[data-submit]');if(b)b.click();
+});
+
+/* ---------- Reveal on scroll ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+function observe(){$$('.reveal:not(.in)').forEach(el=>io.observe(el))}
+
+/* ---------- Intro ---------- */
+(function(){
+  const intro=$('#intro');let t;
+  function close(){clearTimeout(t);intro.classList.add('open');setTimeout(()=>intro.style.display='none',1000);try{sessionStorage.setItem('cbIntro','1')}catch(e){}}
+  function play(){intro.style.display='grid';intro.classList.remove('open');
+    intro.querySelectorAll('svg *, .i-logo, .i-sub').forEach(el=>{el.style.animation='none';void el.getBoundingClientRect();el.style.animation=''});
+    t=setTimeout(close,3400)}
+  $('#skip').addEventListener('click',close);
+  $('#replay').addEventListener('click',()=>{if(!REDUCE){scrollTo(0,0);play()}});
+  let seen=false;try{seen=sessionStorage.getItem('cbIntro')==='1'}catch(e){}
+  if(REDUCE||seen)intro.style.display='none';else play();
+})();
+
+/* ---------- Patty munch: a beef patty gets eaten where you tap ---------- */
+let munchN=0;
+const BITES=[[112,46,22],[90,64,22],[84,24,26],[54,54,28],[24,34,30],[18,70,24]];
+document.addEventListener('click',e=>{
+  if(REDUCE)return;
+  const t=e.target.closest('[data-add],[data-plus],[data-tp],.btn');
+  if(!t||t.disabled||!e.clientX&&!e.clientY)return;
+  const id='munch'+(++munchN),el=document.createElement('div');el.className='munch';el.setAttribute('aria-hidden','true');
+  el.style.left=e.clientX+'px';el.style.top=e.clientY+'px';
+  const bites=BITES.map(([x,y,r],i)=>`<circle class="bite" cx="${x}" cy="${y}" r="${r}" fill="#000" style="animation-delay:${.22+i*.14}s"/>`).join('');
+  const crumbs=BITES.flatMap(([x,y],i)=>[0,1].map(k=>`<i class="crumb" style="--x:${x/120*76}px;--y:${y/90*57}px;--s:${4+Math.random()*4}px;--dx:${(Math.random()*60-30).toFixed(0)}px;animation-delay:${.24+i*.14}s"></i>`)).join('');
+  el.innerHTML=`<svg viewBox="0 0 120 90"><defs><mask id="${id}"><rect x="-10" y="-10" width="140" height="110" fill="#fff"/>${bites}</mask></defs><g mask="url(#${id})"><use href="#a-patty"/></g></svg>${crumbs}`;
+  document.body.appendChild(el);setTimeout(()=>el.remove(),1500);
+});
+route();renderCart();renderTrays();lunchStatus();setInterval(lunchStatus,30000);
+</script>
+</body>
+</html>
